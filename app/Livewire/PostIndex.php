@@ -23,6 +23,15 @@ class PostIndex extends Component
     
     public int $page = 1; // Current chunk page
 
+    /* Sample only
+    // Event listener on 'echo' which is 'posts' channel with 'Example' event
+    #[On('echo:posts,Example')]
+    public function exampleBroadcast()
+    {
+        dd('Event listener works!!!');
+    }
+    */
+
     public function incrementPage()
     {
         $this->page++;
