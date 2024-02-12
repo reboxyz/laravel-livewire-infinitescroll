@@ -10,6 +10,12 @@ class PostItem extends Component
 {
     public Post $post;
 
+    protected $listeners = [
+        // Note! Listening to specific post only
+        'posts.{post.id}.updated' => '$refresh', // Magic method to re-render this component
+        'echo:posts.{post.id},PostUpdated' => '$refresh',
+    ];
+
     // Note! postId is identical with the post prop. For demo only,
     // postId is passed as param but actually redundant
     public function deletePost($postId)
