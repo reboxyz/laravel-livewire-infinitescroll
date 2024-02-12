@@ -61,6 +61,9 @@ class PostIndex extends Component
 
         // Insert to the first chunk by using the spread operator
         $this->chunks[0] = [$postId, ...$this->chunks[0]]; 
+
+        // Note! Dispatch event signifying '0' chunk or the first chunk
+        $this->dispatch('chunk.0.prepend', $postId);
     }
 
     // Event listener 
@@ -72,6 +75,9 @@ class PostIndex extends Component
         {
             if (($key = array_search($postId, $chunk)) !== false)
             {
+                  // Note! Dispatch event signifying nth chunk which is the index (dynamic value)
+                $this->dispatch('chunk.' . $index . '.delete', $key);
+
                 unset($this->chunks[$index][$key]);
                 break;
             }
