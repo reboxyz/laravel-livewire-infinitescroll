@@ -1,0 +1,45 @@
+[FreeCoursesOnline.Me] CodeCourse - Building Reactive Realtime Applications with Livewire
+Alex Garrett-Smith
+
+https://alpinejs.dev/plugins/intersect
+https://livewire.laravel.com/docs/installation#manually-bundling-livewire-and-alpine
+https://docs.soketi.app/getting-started/installation/docker
+
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
+
+composer create-project laravel/laravel reactive-realtime
+php artisan migrate
+composer require laravel/breeze --dev
+php artisan breeze:install #Note!  │ Livewire (Volt Class API) with Alpine    
+php artisan livewire:make SomeList
+php artisan livewire:make SomeListCount
+php artisan make:model Post -mfs
+php artisan db:seed PostSeeder
+php artisan livewire:make PostIndex
+php artisan livewire:make PostItem 
+php artisan livewire:make PostChunk
+php artisan livewire:make CreatePost
+php artisan make:event Example    
+php artisan make:event PostCreated  # Websocket event
+php artisan make:policy PostPolicy #Note! Register policy in the AuthServiceProvider.php
+php artisan make:event PostDeleted # Websocket event
+php artisan livewire:make EditPost
+php artisan make:event PostUpdated
+php artisan make:event PostLiked
+
+
+Soketi/web sockets
+Docker image: docker run -p 6001:6001 -p 9601:9601 quay.io/soketi/soketi:1.4-16-debian
+
+🎉 Server is up and running!   
+   📡 The Websockets server is available at 127.0.0.1:6001   
+   🔗 The HTTP API server is available at http://127.0.0.1:6001   
+   🎊 The /usage endpoint is available on port 9601.   
+
+
+composer require pusher/pusher-php-server
+Note! Enable BroadcastServiceProvider in the config\app.php
+Note! In the bootstrap.js, comment out the ‘pusher’ code
+npm install laravel-echo
+npm install pusher-js   
+

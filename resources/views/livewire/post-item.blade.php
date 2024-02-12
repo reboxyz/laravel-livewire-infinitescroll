@@ -29,4 +29,8 @@
             </div>
         </div>
     </div>
+    <div class="flex items-start self-stretch shrink-0">
+        <button class="flex items-center px-3 py-1 rounded-lg bg-slate-100" wire:click="like">{{ $post->likes }}</button>
+    </div>
+
 </div>
