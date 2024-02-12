@@ -42,6 +42,14 @@ class PostIndex extends Component
         return $this->page < count($this->chunks);
     }
 
+    // Event listener, on echo's posts channel with PostCreated Event
+    #[On('echo:posts,PostCreated')]
+    public function prependPostFromBroadcast($payload)
+    {
+        //dd($payload);
+        $this->prependPost($payload['postId']);
+    }
+
     // Event listener
     #[On('post.created')]
     public function prependPost($postId)

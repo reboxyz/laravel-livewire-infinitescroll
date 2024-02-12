@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Events\PostCreated;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 
@@ -15,6 +16,9 @@ class CreatePost extends Component
         $this->validate();
         // create a post
         $post = request()->user()->posts()->create($this->only('body'));
+
+        // broadcast an event
+        broadcast(new PostCreated($post->id))->toOthers();
 
         // dispatch event with the post id as param
         $this->dispatch('post.created', $post->id);
