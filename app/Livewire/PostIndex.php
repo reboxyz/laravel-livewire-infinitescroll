@@ -42,7 +42,7 @@ class PostIndex extends Component
         return $this->page < count($this->chunks);
     }
 
-    // Event listener, on echo's posts channel with PostCreated Event
+    // Event listener for Websocket, on echo's posts channel with PostCreated Event
     #[On('echo:posts,PostCreated')]
     public function prependPostFromBroadcast($payload)
     {
@@ -63,6 +63,28 @@ class PostIndex extends Component
         $this->chunks[0] = [$postId, ...$this->chunks[0]]; 
     }
 
+    // Event listener 
+    #[On('post.deleted')]
+    public function deletePost($postId)
+    {
+        // iterate all chunks and find the matched id that was deleted
+        foreach($this->chunks as $index => $chunk)
+        {
+            if (($key = array_search($postId, $chunk)) !== false)
+            {
+                unset($this->chunks[$index][$key]);
+                break;
+            }
+        }    
+    }
+
+    // Event listener for Websocket, on echo's posts channel with PostDeleted Event
+    #[On('echo:posts,PostDeleted')]
+    public function deletePostFromBroadcast($payload)
+    {
+        //dd($payload);
+        $this->deletePost($payload['postId']);
+    }
     
     public function mount()
     {
